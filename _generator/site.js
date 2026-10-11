@@ -1,7 +1,7 @@
 // إعدادات الموقع والقوائم المشتركة
 module.exports = {
   brand: 'زخرفة أسماء',
-  baseUrl: 'https://www.example.com', // ⚠️ استبدل بدومينك الحقيقي قبل النشر
+  baseUrl: 'https://zakhraafatasmasa.com', // ⚠️ استبدل بدومينك الحقيقي قبل النشر
 
   nav: [
     { label: 'الرئيسية', href: '/' },
