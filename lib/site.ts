@@ -4,6 +4,7 @@
 import type {
   FooterCol,
   FontTaxonomyEntry,
+  NavItem,
   NavLink,
   TaxonomyEntry,
 } from './types';
@@ -101,4 +102,56 @@ export const site = {
     { slug: 'اسماء-عوائل', name: 'أسماء عوائل', desc: 'أسماء عائلية مزخرفة بطابع فخم.' },
     { slug: 'اسماء-بنات-خليجية', name: 'أسماء بنات خليجية', desc: 'أسماء بنات مزخرفة بذوق خليجي.' },
   ] as TaxonomyEntry[],
+
+  posts: [
+    { slug: 'كيف-تغير-اسمك-في-ببجي', name: 'كيف تغيّر اسمك في ببجي', desc: 'دليل تغيير الاسم في ببجي إلى اسم مزخرف.' },
+    { slug: 'لماذا-يظهر-الاسم-مربعات', name: 'لماذا يظهر الاسم مربعات؟', desc: 'حل مشكلة المربعات الفارغة في الأسماء المزخرفة.' },
+    { slug: 'افكار-اسماء-انستقرام-مزخرفة', name: 'أفكار أسماء انستقرام مزخرفة', desc: 'أفكار لاسم عرض انستقرام لا يُنسى.' },
+  ] as TaxonomyEntry[],
 };
+
+/* ---------- Header nav with sub-page dropdowns (SEO internal linking) ---------- */
+
+const gameLinks: NavLink[] = site.games.map((g) => ({
+  label: 'زخرفة اسماء ' + g.name,
+  href: `/العاب/${g.slug}/`,
+}));
+const socialLinks: NavLink[] = site.socials.map((s) => ({
+  label: 'زخرفة ' + s.name,
+  href: `/تواصل-اجتماعي/${s.slug}/`,
+}));
+const fontLinks: NavLink[] = site.fonts.map((f) => ({
+  label: f.name,
+  href: `/خطوط/${f.slug}/`,
+}));
+
+/** Sub-page dropdowns shared by the homepage anchors and sub-pages */
+export const headerDropdowns: NavItem[] = [
+  { label: 'الألعاب', href: '/العاب/', children: gameLinks },
+  { label: 'تواصل اجتماعي', href: '/تواصل-اجتماعي/', children: socialLinks },
+  { label: 'الخطوط', href: '/خطوط/', children: fontLinks },
+];
+
+/** Full header nav for sub-pages (hubs + dropdowns) */
+export const headerNav: NavItem[] = [
+  { label: 'الرئيسية', href: '/' },
+  { label: 'المولّد', href: '/مولد-اسماء-مزخرفة/' },
+  ...headerDropdowns,
+  { label: 'الرموز', href: '/رموز/' },
+  { label: 'المدونة', href: '/مدونة/' },
+];
+
+/* ---------- Footer sitemap: every sub-page linked sitewide ---------- */
+
+export const footerSitemap: FooterCol[] = [
+  { title: 'زخرفة أسماء الألعاب', links: gameLinks },
+  { title: 'زخرفة حسابات التواصل', links: socialLinks },
+  { title: 'الخطوط المزخرفة', links: fontLinks },
+  {
+    title: 'المجموعات والمدونة',
+    links: [
+      ...site.collections.map((c) => ({ label: c.name, href: `/مجموعات/${c.slug}/` })),
+      ...site.posts.map((p) => ({ label: p.name, href: `/مدونة/${p.slug}/` })),
+    ],
+  },
+];

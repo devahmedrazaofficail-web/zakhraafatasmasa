@@ -103,6 +103,11 @@ export interface NavLink {
   href: string;
 }
 
+/** Nav item that may carry a dropdown of sub-page links */
+export interface NavItem extends NavLink {
+  children?: NavLink[];
+}
+
 export interface FooterCol {
   title: string;
   links: NavLink[];

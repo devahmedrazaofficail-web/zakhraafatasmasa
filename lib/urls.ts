@@ -16,6 +16,15 @@ export function flattenHrefs(html: string): string {
   return html.replace(/href="(\/[^"]*)"/g, (_m, href: string) => `href="${flatHref(href)}"`);
 }
 
+/** Recursively flatten a nav tree's logical hrefs (for dropdown menus) */
+export function flatNav<T extends { href: string; children?: T[] }>(items: T[]): T[] {
+  return items.map((it) => ({
+    ...it,
+    href: flatHref(it.href),
+    ...(it.children ? { children: flatNav(it.children) } : {}),
+  }));
+}
+
 /** 'العاب/ببجي' -> '/العاب-ببجي.html' */
 export function pageUrl(path: string): string {
   return '/' + path.replace(/\//g, '-') + '.html';

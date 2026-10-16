@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { allPages, getPageBySlug, pageSlug } from '@/lib/pages';
-import { canonicalUrl, flatHref } from '@/lib/urls';
-import { site } from '@/lib/site';
+import { canonicalUrl, flatHref, flatNav } from '@/lib/urls';
+import { footerSitemap, headerNav, site } from '@/lib/site';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { Breadcrumb, PageHero, RelatedGrid, Sections } from '@/components/page-parts';
@@ -93,7 +93,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <JsonLd data={breadcrumbJsonLd(page)} />
       {faqLd ? <JsonLd data={faqLd} /> : null}
 
-      <SiteHeader links={site.nav.map((n) => ({ label: n.label, href: flatHref(n.href) }))} logoHref="/" />
+      <SiteHeader links={flatNav(headerNav)} logoHref="/" />
 
       <main>
         {page.breadcrumb ? <Breadcrumb items={page.breadcrumb} /> : null}
@@ -103,7 +103,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         {page.related ? <RelatedGrid related={page.related} /> : null}
       </main>
 
-      <SiteFooter about={FOOTER_ABOUT} columns={site.footerCols} />
+      <SiteFooter about={FOOTER_ABOUT} columns={site.footerCols} sitemap={footerSitemap} />
     </>
   );
 }

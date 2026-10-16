@@ -107,6 +107,12 @@ filesystem-style URLs work unchanged.
   `.html` URLs (the original generator rewrote them globally); the leaked
   internal builder note was removed from the contact page; Google Fonts is no
   longer render-blocking (`next/font` with `display: swap`).
+- Internal linking (added post-migration at owner's request): header has
+  dropdown menus listing every sub-page (12 games, 10 social platforms,
+  11 fonts); footer has a full "جميع صفحات الموقع" sitemap block linking all
+  39 sub-pages sitewide (~108 internal links per page on average). Defined in
+  `lib/site.ts` (`headerNav`, `headerDropdowns`, `footerSitemap`) from the
+  taxonomy data, so new pages appear automatically.
 - Known placeholders: contact form mailto is `hello@example.com`
   (`components/ContactForm.tsx` → `CONTACT_EMAIL`) — replace with the real
   address before/after launch. GA4 is homepage-only, as on the deployed site.

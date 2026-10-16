@@ -9,7 +9,8 @@ import { DecoratorTool } from '@/components/tools/DecoratorTool';
 import { CardsTool } from '@/components/tools/CardsTool';
 import { InvisibleTool, SymbolsTool } from '@/components/tools/StaticTools';
 import { SYMBOL_GROUPS } from '@/lib/zakhrafa';
-import { site } from '@/lib/site';
+import { footerSitemap, headerDropdowns, site } from '@/lib/site';
+import { flatNav } from '@/lib/urls';
 import type { Faq, FooterCol } from '@/lib/types';
 
 const HOME_TITLE = 'زخرفة اسماء | مولّد أسماء مزخرفة عربية وإنجليزية مجاناً';
@@ -216,7 +217,7 @@ export default function Home() {
         `}
       </Script>
 
-      <SiteHeader links={HEADER_LINKS} logoHref="#top" />
+      <SiteHeader links={[...HEADER_LINKS, ...flatNav(headerDropdowns)]} logoHref="#top" />
 
       <main id="top">
         <section className="hero">
@@ -680,7 +681,7 @@ export default function Home() {
         </section>
       </main>
 
-      <SiteFooter about={FOOTER_ABOUT} columns={FOOTER_COLS} />
+      <SiteFooter about={FOOTER_ABOUT} columns={FOOTER_COLS} sitemap={footerSitemap} />
     </>
   );
 }
